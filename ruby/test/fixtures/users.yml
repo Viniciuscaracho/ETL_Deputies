@@ -1,0 +1,4 @@
+user1:
+  email: tes@example.com
+user2:
+  email: test@example.com  # This will cause a duplicate key violation
