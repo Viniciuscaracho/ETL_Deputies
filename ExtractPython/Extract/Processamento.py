@@ -1,27 +1,34 @@
 import pandas as pd
-import os
 
 class Processamento:
     def __init__(self, entrada):
         self.entrada = entrada
 
     def processar(self):
-        
-        for arquivo_entrada in self.entrada:
-            nome_base = os.path.basename(arquivo_entrada).split('.')[0]
+        for item in self.entrada:
+            nome_base = item['nome_base']
+            dados = item['dados']
 
-            df = pd.read_csv(arquivo_entrada, delimiter=';', quotechar='"')
-
-            if nome_base == 'votacoesProposicoes-2024':
-                colunas_necessarias = ["proposicao_id", "descricao"]
-            elif nome_base == 'votacoesObjetos-2024':
-                colunas_necessarias = ["proposicao_id", "descricao"]
-            elif nome_base == 'proposicoesTemas-2024':
-                colunas_necessarias = ["uriProposicao", "tema"]
-            elif nome_base == 'proposicoesAutores-2024':
-                colunas_necessarias = ["idProposicao", "idDeputadoAutor", "nomeAutor"]
+            if isinstance(dados, list):
+                # Se os dados são uma lista de dicionários, criamos o DataFrame diretamente
+                df = pd.DataFrame(dados)
+            elif isinstance(dados, dict):
+                # Se os dados são um dicionário, convertemos para uma lista de dicionários
+                df = pd.DataFrame([dados])
             else:
-                print(f"Arquivo {arquivo_entrada} não reconhecido.")
+                print(f"Tipo de dados não suportado para {nome_base}: {type(dados)}")
+                continue
+
+            if nome_base == 'detalhes_deputado':
+                colunas_necessarias = ["id", "nome", "siglaPartido"]
+            elif nome_base == 'votos_deputado':
+                colunas_necessarias = ["proposicao_id", "voto"]
+            elif nome_base == 'temas_proposicoes':
+                colunas_necessarias = ["proposicao_id", "tema"]
+            elif nome_base == 'proposicoes_autor':
+                colunas_necessarias = ["id", "ementa"]
+            else:
+                print(f"Dados {nome_base} não reconhecidos.")
                 continue
 
             # Verifica se todas as colunas necessárias estão presentes no DataFrame
@@ -44,4 +51,4 @@ class Processamento:
                 if dicionario_valor:
                     print(f"Dicionário de {nome_base}:", dicionario_valor)
             else:
-                print(f"O arquivo {arquivo_entrada} não contém todas as colunas necessárias: {colunas_necessarias}")
+                print(f"Os dados {nome_base} não contêm todas as colunas necessárias: {colunas_necessarias}")
