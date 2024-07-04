@@ -9,15 +9,8 @@ class Processamento:
             nome_base = item['nome_base']
             dados = item['dados']
 
-            if isinstance(dados, list):
-                # Se os dados são uma lista de dicionários, criamos o DataFrame diretamente
-                df = pd.DataFrame(dados)
-            elif isinstance(dados, dict):
-                # Se os dados são um dicionário, convertemos para uma lista de dicionários
-                df = pd.DataFrame([dados])
-            else:
-                print(f"Tipo de dados não suportado para {nome_base}: {type(dados)}")
-                continue
+            df = pd.DataFrame(dados)
+            df = pd.DataFrame([dados])
 
             if nome_base == 'detalhes_deputado':
                 colunas_necessarias = ["id", "nome", "siglaPartido"]
