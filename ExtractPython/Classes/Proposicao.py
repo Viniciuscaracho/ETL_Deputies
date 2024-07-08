@@ -18,15 +18,11 @@ class Proposicao:
         response = requests.get(f"{self.base_url}/proposicoes/{self.id}/temas")
         response_temas = response.json()
         temas_list = []
-        deputado = Deputado(220682)
-        df_proposicoes_selecionado = deputado.get_proposicoes()
 
-        for proposicao_id in df_proposicoes_selecionado['id']:
-            proposicao = Proposicao(proposicao_id)
-            temas_proposicao = proposicao.get_temas()
-            for tema in temas_proposicao['dados']:
+        if "dados" in response_temas:
+            for tema in response_temas["dados"]:
                 temas_list.append({
-                    "proposicao_id": proposicao_id,
+                    "proposicao_id": self.id,
                     "tema": tema['tema']
                 })
 
@@ -35,18 +31,16 @@ class Proposicao:
 
     def get_votos(self):
         response = requests.get(f"{self.base_url}/proposicoes/{self.id}/votacoes")
-        deputado = Deputado(220682)
-        df_proposicoes_selecionado = deputado.get_proposicoes()
+        response_votos = response.json()
         votos_list = []
-        for proposicoes_id in df_proposicoes_selecionado['id']:
-            proposicao = Proposicao(proposicoes_id)
-            votos_deputado = proposicao.get_votos()
-            for voto in votos_deputado['dados']:
+
+        if "dados" in response_votos:
+            for voto in response_votos["dados"]:
                 votos_list.append({
                     "voto_id": voto["id"],
                     "descricao": voto['descricao'],
                     "aprovacao": voto['aprovacao']
                 })
+
         df_votos = pd.DataFrame(votos_list)
         return df_votos
-
