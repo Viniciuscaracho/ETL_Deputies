@@ -1,17 +1,10 @@
 import requests
 import pandas as pd
-from Classes.Proposicao import Proposicao
 
 class Deputado:
     def __init__(self, id):
         self.id = id
         self.base_url = "https://dadosabertos.camara.leg.br/api/v2/"
-
-
-    def get_deputados(self):
-        response = requests.get(f"{self.base_url}/deputados/")
-        deputados = []
-        for deput in
 
     def get_detalhes(self):
         response = requests.get(f"{self.base_url}/deputados/{self.id}")
