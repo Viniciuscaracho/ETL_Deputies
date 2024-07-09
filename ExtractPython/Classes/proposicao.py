@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-from Classes.Deputado import Deputado
+
 class Proposicao:
     def __init__(self, deputado):
         self.deputado = deputado
