@@ -1,27 +1,25 @@
 import psycopg2
 from psycopg2 import OperationalError
 
-DB_NAME = "postgres"
-DB_USER = "postgres"
-DB_PASSWORD = "postgres"
-DB_HOST = "localhost"
-DB_PORT = "9999"
+class connection_db:
+    def __init__(self):
+        self.DB_NAME = "postgres"
+        self.DB_USER = "postgres"
+        self.DB_PASSWORD = "postgres"
+        self.DB_HOST = "localhost"
+        self.DB_PORT = "9999"
 
-def create_connection():
-    try:
-        conn = psycopg2.connect(
-            dbname=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            host=DB_HOST,
-            port=DB_PORT
-        )
-        print("Conexão com PostgreSQL estabelecida com sucesso!")
-        return conn
-    except OperationalError as e:
-        print(f"Erro ao conectar ao PostgreSQL: {e}")
-        return None
-
-conn = create_connection()
-if conn:
-    conn.close()
+    def create_connection(self):
+        try:
+            conn = psycopg2.connect(
+                dbname=self.DB_NAME,
+                user=self.DB_USER,
+                password=self.DB_PASSWORD,
+                host=self.DB_HOST,
+                port=self.DB_PORT
+            )
+            print("Conexão com PostgreSQL estabelecida com sucesso!")
+            return conn
+        except OperationalError as e:
+            print(f"Erro ao conectar ao PostgreSQL: {e}")
+            return None
