@@ -5,7 +5,7 @@ class Proposition:
     def __init__(self, deputy):
         self.deputy = deputy
         self.base_url = "https://dadosabertos.camara.leg.br/api/v2/"
-        self.selected_propositions_df = self.deputy.get_propositions()
+        self.selected_propositions_df = self.deputy.get_deputy_propositions()
 
     def chunks(self, lst, n):
         for i in range(0, len(lst), n):
