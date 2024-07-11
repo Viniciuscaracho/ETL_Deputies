@@ -1,7 +1,9 @@
 class CreatePropositions < ActiveRecord::Migration[7.1]
   def change
     create_table :propositions do |t|
-      t.text :description
+      t.string :type
+      t.text :summary
+      t.references :deputy, null: false, foreign_key: true
 
       t.timestamps
     end

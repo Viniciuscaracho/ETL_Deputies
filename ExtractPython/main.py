@@ -8,16 +8,14 @@ if __name__ == '__main__':
     process = Process(deputy, proposicao)
 
     autores = proposicao.get_proposition_authors()
-    process.insert_authors(autores)
-
     deputados = deputy.get_deputies(autores)
     process.insert_deputies(deputados)
+    # print(deputados)
+    # selected_propositions_df = deputy.get_deputy_propositions()
+    # process.insert_propositions(selected_propositions_df)
 
-    selected_propositions_df = deputy.get_deputy_propositions()
-    process.insert_propositions(selected_propositions_df)
-
-    temas = proposicao.get_themes()
-    process.insert_themes(temas)
-
-    votos = proposicao.get_votes()
-    process.insert_votes(votos)
+    # temas = proposicao.get_themes()
+    # process.insert_themes(temas)
+    #
+    # votos = proposicao.get_votes()
+    # process.insert_votes(votos)

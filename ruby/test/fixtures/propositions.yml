@@ -1,7 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  description: MyText
+  type: 
+  summary: MyText
+  deputy: one
 
 two:
-  description: MyText
+  type: 
+  summary: MyText
+  deputy: two

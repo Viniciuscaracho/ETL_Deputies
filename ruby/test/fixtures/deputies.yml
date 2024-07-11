@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  party: MyString
+  party_initials: MyString
 
 two:
   name: MyString
-  party: MyString
+  party_initials: MyString

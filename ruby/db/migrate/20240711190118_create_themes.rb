@@ -1,8 +1,8 @@
-class CreateVotes < ActiveRecord::Migration[7.1]
+class CreateThemes < ActiveRecord::Migration[7.1]
   def change
-    create_table :votes do |t|
+    create_table :themes do |t|
       t.references :proposition, null: false, foreign_key: true
-      t.string :vote
+      t.text :theme
 
       t.timestamps
     end

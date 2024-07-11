@@ -2,8 +2,10 @@
 
 one:
   proposition: one
-  vote: MyString
+  description: MyText
+  approval: MyString
 
 two:
   proposition: two
-  vote: MyString
+  description: MyText
+  approval: MyString
