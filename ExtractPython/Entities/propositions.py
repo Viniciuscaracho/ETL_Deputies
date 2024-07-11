@@ -73,7 +73,7 @@ class Proposition:
             for proposition_id in batch:
                 try:
                     response = requests.get(f"{self.base_url}/proposicoes/{proposition_id}/votacoes")
-                    response.raise_for_status()  # Raise exception for bad response status
+                    response.raise_for_status()
                 except requests.exceptions.RequestException as e:
                     print(f"Error fetching votes for proposition {proposition_id}: {str(e)}")
                     continue

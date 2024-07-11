@@ -26,7 +26,7 @@ class Deputy:
 
         return pd.DataFrame(deputies_list)
 
-    def get_propositions(self, max_rows=40):
+    def get_deputy_propositions(self, max_rows=40):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(base_dir, '../proposicoes-2024.json')
 

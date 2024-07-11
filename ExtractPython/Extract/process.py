@@ -1,6 +1,6 @@
 from db import connection_db
 
-class Processamento:
+class Process:
     def __init__(self, deputy, proposition):
         self.deputy = deputy
         self.proposition = proposition
