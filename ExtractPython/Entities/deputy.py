@@ -41,7 +41,7 @@ class Deputy:
         for prop in propositions['dados']:
             current_proposition = {
                 'id': prop['id'],
-                'type_initials': prop['siglaTipo'],
+                'type': prop['siglaTipo'],
                 'summary': prop['ementa']
             }
             propositions_list.append(current_proposition)

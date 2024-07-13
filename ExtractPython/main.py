@@ -4,18 +4,13 @@ from Extract.process import Process
 
 if __name__ == '__main__':
     deputy = Deputy()
-    proposicao = Proposition(deputy)
-    process = Process(deputy, proposicao)
+    proposition = Proposition(deputy)
+    process = Process(deputy, proposition)
 
-    autores = proposicao.get_proposition_authors()
-    deputados = deputy.get_deputies(autores)
-    process.insert_deputies(deputados)
-    # print(deputados)
-    # selected_propositions_df = deputy.get_deputy_propositions()
-    # process.insert_propositions(selected_propositions_df)
-
-    # temas = proposicao.get_themes()
-    # process.insert_themes(temas)
-    #
-    # votos = proposicao.get_votes()
-    # process.insert_votes(votos)
+    authors = proposition.get_proposition_authors()
+    deputies = deputy.get_deputies(authors)
+    process.insert_deputies(deputies)
+    process.insert_propositions(deputy.get_deputy_propositions())
+    process.insert_votes(proposition.get_votes())
+    process.insert_themes(proposition.get_themes())
+    process.close_connection()

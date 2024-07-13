@@ -3,7 +3,7 @@ from psycopg2 import OperationalError
 
 class connection_db:
     def __init__(self):
-        self.DB_NAME = "postgres"
+        self.DB_NAME = "project_development"
         self.DB_USER = "postgres"
         self.DB_PASSWORD = "postgres"
         self.DB_HOST = "localhost"
