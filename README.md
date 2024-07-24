@@ -29,33 +29,6 @@ The web application is responsible for:
 - **Turbo (Hotwire):** Enhances the navigation experience by replacing only the necessary content without reloading the entire page.
 - **Stimulus (Hotwire):** Adds dynamic behaviors to HTML elements with minimal JavaScript.
 
-### Project Structure
-
-\`\`\`
-project-root/
-│
-├── etl/
-│   ├── Entities
-│      └── deputy.py 
-│      └── propositions.py
-│   ├── Extract
-│      └── process.py 
-│   ├── db_config.py
-│   ├── main.py
-│
-├── web/
-│   ├── app/
-│   ├── config/
-│   ├── db/
-│   ├── public/
-│   ├── Gemfile
-│   ├── Gemfile.lock
-│   └── ...
-│
-├── README.md
-└── ...
-\`\`\`
-
 ### How to Run the Project
 
 #### ETL Component
