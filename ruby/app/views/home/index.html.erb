@@ -1,33 +1,34 @@
-<body class="p-0 bg-white ">
-  <header class="fixed top-0 left-0 right-0 z-50 flex bg-gray-300 bg-opacity-15 flex-col w-full md:flex-row justify-between items-center">
+<body class="p-0 bg-gray-200">
+  <header class="fixed top-0 left-0 right-0 z-50 flex bg-gray-900 bg-opacity-15 flex-col w-full md:flex-row justify-between items-center">
     <div class="flex flex-col mx-16 h-28 w-full md:flex-row items-center justify-between">
       <h1 class="text-2xl not-italic">InfoPage</h1>
       <button class="bg-danger-600 text-white px-4 py-2 rounded absolute top-4 right-4 md:static md:ml-auto">Carrinho</button>
     </div>
   </header>
-  <main class="flex justify-center p-10 mt-32  ">
-    <div class="flex-auto justify-center px-2 py-4 bg-gray-100 max-w-screen-md w-full ">
-      <div class="rounded-lg items-center bg-amber-500 py-2 px-2 mt-2">
-        Pesquisar
+  <main class="flex justify-center p-10 mt-32">
+    <div class="flex-auto justify-center rounded px-2 bg-gray-100 max-w-screen-md w-full shadow-md">
+      <div class="rounded-lg items-center py-2 px-2 mt-2">
+        <input type="search" name="query" placeholder="Pesquisar" class="border-gray-400 rounded-lg bg-white px-4 py-2" style="width: 635px; border-width: 2px;">
+        <button class="m-2 rounded-lg bg-blue-800 px-4 py-2 text-white">Search</button>
       </div>
     </div>
   </main>
   <div class="flex justify-center">
-    <table class=" bg-gray-100 mx-20 px-96 max-w-screen-md w-full ">
+    <table class="bg-zinc-100 mx-20 rounded px-96 max-w-screen-md w-full shadow-lg">
       <tbody>
-        <tr class="flex-auto py-8">
-          <th class="flex-auto px-2 py-8">
-            <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5">
-              deputy
-            </div>
-            <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 mt-5">
-              deputy
-            </div>
-            <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 mt-5">
-              deputy
-            </div>
-          </th>
-        </tr>
+      <tr class="flex-auto py-8">
+        <th class="flex-auto px-2 py-8">
+          <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 shadow-md">
+            deputy
+          </div>
+          <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 mt-5 shadow-md">
+            deputy
+          </div>
+          <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 mt-5 shadow-md">
+            deputy
+          </div>
+        </th>
+      </tr>
       </tbody>
     </table>
   </div>
