@@ -1,34 +1,42 @@
 <body class="p-0 bg-gray-200">
-  <header class="fixed top-0 left-0 right-0 z-50 flex bg-gray-900 bg-opacity-15 flex-col w-full md:flex-row justify-between items-center">
-    <div class="flex flex-col mx-16 h-28 w-full md:flex-row items-center justify-between">
-      <h1 class="text-2xl not-italic">InfoPage</h1>
-      <button class="bg-danger-600 text-white px-4 py-2 rounded absolute top-4 right-4 md:static md:ml-auto">Carrinho</button>
+  <header class="fixed top-0 left-0 right-0 z-50 flex flex-col md:flex-row bg-gray-900 bg-opacity-15 w-full items-center">
+    <div class="relative flex flex-col md:flex-row mx-6 md:mx-28 h-28 w-full items-center justify-between">
+      <h1 class="text-2xl not-italic">Deputinfos</h1>
+      <div class="flex gap-4 mt-4 md:mt-0 md:ml-auto">
+        <a href="https://www.camara.leg.br/transparencia/" class="bg-green-600 mx-3 text-white px-4 py-2 rounded">Portal Transparência</a>
+        <a href="<%= new_user_session_path %>" class="bg-blue-800 text-white px-4 py-2 rounded">Login</a>
+      </div>
     </div>
   </header>
   <main class="flex justify-center p-10 mt-32">
-    <div class="flex-auto justify-center rounded px-2 bg-gray-100 max-w-screen-md w-full shadow-md">
+    <div class="flex-auto justify-center rounded-lg px-2 py-2 bg-gray-100 max-w-screen-sm shadow-md">
       <div class="rounded-lg items-center py-2 px-2 mt-2">
-        <input type="search" name="query" placeholder="Pesquisar" class="border-gray-400 rounded-lg bg-white px-4 py-2" style="width: 635px; border-width: 2px;">
-        <button class="m-2 rounded-lg bg-blue-800 px-4 py-2 text-white">Search</button>
+        <%= form_with url: root_path, method: :get, local: true do |f| %>
+          <%= f.text_field :query, value: params[:query], placeholder: "Search by name or party", class: "border-gray-400 rounded-lg bg-white w-96 px-4 py-2", style: "width: 500px; border-width: 2px;" %>
+          <button type="submit" class="ml-2 rounded-lg bg-blue-800 px-4 py-2 text-white">Search</button>
+        <% end %>
       </div>
     </div>
   </main>
-  <div class="flex justify-center">
-    <table class="bg-zinc-100 mx-20 rounded px-96 max-w-screen-md w-full shadow-lg">
-      <tbody>
-      <tr class="flex-auto py-8">
-        <th class="flex-auto px-2 py-8">
-          <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 shadow-md">
-            deputy
-          </div>
-          <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 mt-5 shadow-md">
-            deputy
-          </div>
-          <div class="w-full flex justify-between rounded-3xl items-center bg-amber-500 px-2 py-5 mt-5 shadow-md">
-            deputy
-          </div>
-        </th>
-      </tr>
+  <div class="mx-80 max-w-screen-xl w-full">
+    <table class="bg-zinc-100 rounded-lg w-full shadow-lg">
+      <tbody class="w-full">
+        <tr class="w-full">
+          <th class="px-2 py-4 w-full">
+            <div class="flex justify-between items-center mb-4">
+              <div class="px-3 py-2">
+                <h1 class="text-lg font-bold">Name</h1>
+              </div>
+              <div class="px-12 py-2">
+                <h1 class="text-lg font-bold">Partido</h1>
+              </div>
+            </div>
+            <%= render partial: 'home/deputies', collection: @deputies %>
+            <div class="pagination mt-3">
+              <%= will_paginate @deputies %>
+            </div>
+          </th>
+        </tr>
       </tbody>
     </table>
   </div>

@@ -1,4 +1,7 @@
 module ApplicationHelper
+  include Heroicon::Engine.helpers
+
+
   def field_error_message(object, attribute, custom_css_class = "text-rose-600")
     error_messages = object&.errors&.full_messages_for(attribute)
     return ''.html_safe if error_messages.blank?
