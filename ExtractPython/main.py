@@ -9,8 +9,9 @@ if __name__ == '__main__':
 
     authors = proposition.get_proposition_authors()
     deputies = deputy.get_deputies(authors)
-    process.insert_deputies(deputies)
-    process.insert_propositions(deputy.get_deputy_propositions())
-    process.insert_votes(proposition.get_votes())
-    process.insert_themes(proposition.get_themes())
+    propositions = deputy.get_deputy_propositions()
+    process.insert_propositions(propositions)
+    process.insert_deputies(deputies, propositions)
+    process.insert_votes(proposition.get_votes(), propositions)
+    process.insert_themes(proposition.get_themes(), propositions)
     process.close_connection()
