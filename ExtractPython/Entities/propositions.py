@@ -62,7 +62,10 @@ class Proposition:
                         "theme": theme['tema']
                     })
 
-        return pd.DataFrame(themes_list)
+        themes_df = pd.DataFrame(themes_list)
+        themes_df['id'] = themes_df.index
+
+        return themes_df
 
     def get_votes(self, batch_size=100):
         if self.selected_propositions_df.empty:
@@ -85,7 +88,8 @@ class Proposition:
 
                 for vote in response_data['dados']:
                     votes_list.append({
-                        "vote_id": vote["id"],
+                        "id": vote["id"],
+                        "proposition_id": proposition_id,
                         "description": vote['descricao'],
                         "approval": vote["aprovacao"]
                     })

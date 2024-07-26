@@ -7,14 +7,14 @@ class Process:
         db = connection_db()
         self.conn = db.create_connection()
 
-    def insert_deputies(self, deputies_df, propositions_df):
+    def insert_deputies(self, deputies_df):
         if self.conn:
             cursor = self.conn.cursor()
 
             try:
                 print(deputies_df.columns)
 
-                for index, row in deputies_df.iterrows() and propositions_df.iterrows():
+                for index, row in deputies_df.iterrows():
                     cursor.execute("SELECT id FROM deputies WHERE id = %s", (row['id'],))
                     existing_deputy = cursor.fetchone()
 
@@ -27,10 +27,10 @@ class Process:
                         cursor.execute(sql, (row['civil_name'], row['party_initials'], row['id']))
                     else:
                         sql = """
-                              INSERT INTO deputies(id, civil_name, party_initials, proposition_id, created_at, updated_at)
-                              VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                              INSERT INTO deputies(id, civil_name, party_initials, created_at, updated_at)
+                              VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
                               """
-                        cursor.execute(sql, (row['id'], row['civil_name'], row['party_initials'], row['proposition_id']))
+                        cursor.execute(sql, (row['id'], row['civil_name'], row['party_initials']))
 
                 self.conn.commit()
                 print("Dados dos deputados inseridos com sucesso!")
@@ -77,30 +77,31 @@ class Process:
             finally:
                 cursor.close()
 
-    def insert_themes(self, themes_df, propositions_df):
+    def insert_themes(self, themes_df):
         if self.conn:
             cursor = self.conn.cursor()
 
             try:
                 print(themes_df.columns)
 
-                for index, row in themes_df.iterrows() and propositions_df.iterrows():
-                    cursor.execute("SELECT id FROM themes WHERE id = %s", (row['id'],))
+                for index, row in themes_df.iterrows():
+                    cursor.execute("SELECT id FROM themes WHERE proposition_id = %s AND theme = %s",
+                                   (row['proposition_id'], row['theme']))
                     existing_theme = cursor.fetchone()
 
                     if existing_theme:
                         sql = """
                               UPDATE themes
-                              SET theme = %s, proposition_id = %s, updated_at = CURRENT_TIMESTAMP
-                              WHERE id = %s
+                              SET updated_at = CURRENT_TIMESTAMP
+                              WHERE proposition_id = %s AND theme = %s
                               """
-                        cursor.execute(sql, (row['theme'], row['proposition_id'], row['id']))
+                        cursor.execute(sql, (row['proposition_id'], row['theme']))
                     else:
                         sql = """
-                              INSERT INTO themes(id, proposition_id, theme, created_at, updated_at)
-                              VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                              INSERT INTO themes(proposition_id, theme, created_at, updated_at)
+                              VALUES (%s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
                               """
-                        cursor.execute(sql, (row['id'], row['proposition_id'], row['theme']))
+                        cursor.execute(sql, (row['proposition_id'], row['theme']))
 
                 self.conn.commit()
                 print("Dados dos temas inseridos/atualizados com sucesso!")
@@ -112,30 +113,30 @@ class Process:
             finally:
                 cursor.close()
 
-    def insert_votes(self, votes_df, propositions_df):
+    def insert_votes(self, votes_df):
         if self.conn:
             cursor = self.conn.cursor()
 
             try:
                 print(votes_df.columns)
 
-                for index, row in votes_df.iterrows() and propositions_df.iterrows():
+                for index, row in votes_df.iterrows():
                     cursor.execute("SELECT id FROM votes WHERE id = %s", (row['id'],))
                     existing_vote = cursor.fetchone()
 
                     if existing_vote:
                         sql = """
                               UPDATE votes
-                              SET vote_id = %s, description = %s, approval = %s, updated_at = CURRENT_TIMESTAMP
+                              SET proposition_id = %s, description = %s, approval = %s, updated_at = CURRENT_TIMESTAMP
                               WHERE id = %s
                               """
-                        cursor.execute(sql, (row['vote_id'], row['description'], row['approval']))
+                        cursor.execute(sql, (row['proposition_id'], row['description'], row['approval'], row['id']))
                     else:
                         sql = """
                               INSERT INTO votes(id, proposition_id, description, approval, created_at, updated_at)
                               VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
                               """
-                        cursor.execute(sql, (row['vote_id'], row['description'], row['proposition_id'], row['approval']))
+                        cursor.execute(sql, (row['id'], row['proposition_id'], row['description'], row['approval']))
 
                 self.conn.commit()
                 print("Dados dos votos inseridos/atualizados com sucesso!")

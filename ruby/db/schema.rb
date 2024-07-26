@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_11_190126) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_140922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "deputies", force: :cascade do |t|
     t.string "civil_name"
     t.string "party_initials"
+    t.integer "proposition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -24,18 +25,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_190126) do
   create_table "propositions", force: :cascade do |t|
     t.string "type"
     t.text "summary"
-    t.bigint "deputy_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["deputy_id"], name: "index_propositions_on_deputy_id"
   end
 
   create_table "themes", force: :cascade do |t|
-    t.bigint "proposition_id", null: false
-    t.text "theme"
+    t.integer "proposition_id"
+    t.string "theme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["proposition_id"], name: "index_themes_on_proposition_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,16 +50,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_190126) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "votes", force: :cascade do |t|
-    t.bigint "proposition_id", null: false
-    t.text "description"
+  create_table "votes", id: :serial, force: :cascade do |t|
+    t.integer "proposition_id"
+    t.string "description"
     t.string "approval"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["proposition_id"], name: "index_votes_on_proposition_id"
+    t.index ["id"], name: "index_votes_on_id", unique: true
   end
 
-  add_foreign_key "propositions", "deputies"
-  add_foreign_key "themes", "propositions"
-  add_foreign_key "votes", "propositions"
 end
