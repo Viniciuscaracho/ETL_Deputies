@@ -7,11 +7,17 @@ if __name__ == '__main__':
     proposition = Proposition(deputy)
     process = Process(deputy, proposition)
 
-    authors = proposition.get_proposition_authors()
-    deputies = deputy.get_deputies(authors)
-    propositions = deputy.get_deputy_propositions()
-    process.insert_propositions(propositions)
-    process.insert_deputies(deputies)
-    process.insert_votes(proposition.get_votes())
-    process.insert_themes(proposition.get_themes())
+    propositions_df = deputy.get_deputy_propositions()
+
+    authors_df = proposition.get_proposition_authors()
+    deputies_df = deputy.get_deputies(authors_df)
+
+    votes_df = proposition.get_votes()
+    themes_df = proposition.get_themes()
+
+    process.insert_propositions(propositions_df)
+    process.insert_deputies(deputies_df)
+    process.insert_votes(votes_df)
+    process.insert_themes(themes_df)
+
     process.close_connection()

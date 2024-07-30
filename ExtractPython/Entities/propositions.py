@@ -17,7 +17,7 @@ class Proposition:
             for proposition_id in batch:
                 try:
                     response = requests.get(f"{self.base_url}/proposicoes/{proposition_id}/autores")
-                    response.raise_for_status()  # Raise exception for bad response status
+                    response.raise_for_status()
                 except requests.exceptions.RequestException as e:
                     print(f"Error fetching authors for proposition {proposition_id}: {str(e)}")
                     continue
@@ -32,7 +32,8 @@ class Proposition:
                         continue
                     authors_list.append({
                         "uri": author["uri"],
-                        "name": author["nome"]
+                        "name": author["nome"],
+                        "proposition_id": proposition_id
                     })
 
         return pd.DataFrame(authors_list)
@@ -46,7 +47,7 @@ class Proposition:
             for proposition_id in batch:
                 try:
                     response = requests.get(f"{self.base_url}/proposicoes/{proposition_id}/temas")
-                    response.raise_for_status()  # Raise exception for bad response status
+                    response.raise_for_status()
                 except requests.exceptions.RequestException as e:
                     print(f"Error fetching themes for proposition {proposition_id}: {str(e)}")
                     continue

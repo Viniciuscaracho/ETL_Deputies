@@ -16,35 +16,9 @@
     </div>
   </header>
   <main class="flex justify-center p-10 mt-32">
-    <div class="flex-auto justify-center rounded-lg px-2 py-2 bg-gray-100 max-w-screen-sm shadow-md">
-      <div class="rounded-lg items-center py-2 px-2 mt-2">
-        <%= form_with url: root_path, method: :get, local: true do |f| %>
-          <%= f.text_field :query, value: params[:query], placeholder: "Search by name or party", class: "border-gray-400 rounded-lg bg-white w-96 px-4 py-2", style: "width: 500px; border-width: 2px;" %>
-          <button type="submit" class="ml-2 rounded-lg bg-blue-800 px-4 py-2 text-white">Search</button>
-        <% end %>
-      </div>
-    </div>
+
   </main>
   <div class="mx-80 max-w-screen-xl w-full">
-    <table class="bg-zinc-100 rounded-lg justify-center w-full shadow-lg">
-      <tbody class="w-full">
-      <tr class="w-full">
-        <th class="px-2 py-4 w-full">
-          <div class="flex justify-between items-center mb-4">
-            <div class="px-3 py-2">
-              <h1 class="text-lg font-bold">Name</h1>
-            </div>
-            <div class="px-12 py-2">
-              <h1 class="text-lg font-bold">Partido</h1>
-            </div>
-          </div>
-          <%= render partial: 'home/deputies', collection: @deputies %>
-          <div class="pagination mt-3">
-            <%= will_paginate @deputies %>
-          </div>
-        </th>
-      </tr>
-      </tbody>
-    </table>
+
   </div>
 </body>

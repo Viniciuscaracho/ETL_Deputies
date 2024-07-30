@@ -21,19 +21,19 @@ class Process:
                     if existing_deputy:
                         sql = """
                               UPDATE deputies
-                              SET civil_name = %s, party_initials = %s, updated_at = CURRENT_TIMESTAMP
+                              SET civil_name = %s, party_initials = %s, proposition_id = %s, updated_at = CURRENT_TIMESTAMP
                               WHERE id = %s
                               """
-                        cursor.execute(sql, (row['civil_name'], row['party_initials'], row['id']))
+                        cursor.execute(sql, (row['civil_name'], row['party_initials'], row['proposition_ids'],  row['id']))
                     else:
                         sql = """
-                              INSERT INTO deputies(id, civil_name, party_initials, created_at, updated_at)
-                              VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                              INSERT INTO deputies(id, civil_name, proposition_id, party_initials, created_at, updated_at)
+                              VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
                               """
-                        cursor.execute(sql, (row['id'], row['civil_name'], row['party_initials']))
+                        cursor.execute(sql, (row['id'], row['civil_name'], row['party_initials'], row['proposition_ids']))
 
                 self.conn.commit()
-                print("Dados dos deputados inseridos com sucesso!")
+                print("Dados dos deputados inseridos/atualizados com sucesso!")
 
             except Exception as e:
                 print(f"Erro ao inserir/atualizar dados dos deputados: {str(e)}")
