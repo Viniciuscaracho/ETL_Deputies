@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   root 'home#index'
   resources :deputies, only: [:index, :show]
+  resources :search, only: [:index, :show]
 end

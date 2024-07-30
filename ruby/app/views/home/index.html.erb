@@ -15,36 +15,48 @@
       </div>
     </div>
   </header>
-  <main class="flex justify-center p-10 mt-32">
-    <div class="flex-auto justify-center rounded-lg px-2 py-2 bg-gray-100 max-w-screen-sm shadow-md">
-      <div class="rounded-lg items-center py-2 px-2 mt-2">
-        <%= form_with url: root_path, method: :get, local: true do |f| %>
-          <%= f.text_field :query, value: params[:query], placeholder: "Search by name or party", class: "border-gray-400 rounded-lg bg-white w-96 px-4 py-2", style: "width: 500px; border-width: 2px;" %>
-          <button type="submit" class="ml-2 rounded-lg bg-blue-800 px-4 py-2 text-white">Search</button>
-        <% end %>
+  <main class="flex flex-col items-center justify-center mt-32 p-10">
+    <section class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">Conheça os Deputados que fazem a diferença no Brasil</h2>
+      <p class="text-lg mb-6">Explore as informações sobre deputados, suas proposições e votações.</p>
+      <a href="<%= search_path %>>" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300">Veja os Deputados</a>
+    </section>
+
+    <section id="sobre" class="text-center mb-16">
+      <h2 class="text-3xl font-bold mb-4">Sobre o Site</h2>
+      <p class="text-lg max-w-2xl mx-auto">Nosso site oferece uma visão completa sobre os deputados do Brasil, suas proposições e suas posições em votações. Acompanhe o trabalho dos nossos representantes e fique informado.</p>
+    </section>
+
+    <section id="deputados" class="text-center mb-16">
+      <h2 class="text-3xl font-bold mb-6">Deputados em Destaque</h2>
+      <div class="flex flex-wrap justify-center gap-6">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
+          <h3 class="text-xl font-semibold mb-2">Nome do Deputado</h3>
+          <p class="text-gray-600 mb-4">Partido - Estado</p>
+          <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">Ver Perfil</a>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
+          <h3 class="text-xl font-semibold mb-2">Nome do Deputado</h3>
+          <p class="text-gray-600 mb-4">Partido - Estado</p>
+          <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">Ver Perfil</a>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <section id="contato" class="text-center mb-16">
+      <h2 class="text-3xl font-bold mb-4">Contato</h2>
+      <p class="text-lg mb-4">Se você tiver dúvidas ou precisar de mais informações, entre em contato conosco:</p>
+      <p class="text-lg">Email: contato@deputadosdobrasil.com.br</p>
+      <p class="text-lg">Telefone: (11) 1234-5678</p>
+    </section>
   </main>
-  <div class="mx-80 max-w-screen-xl w-full">
-    <table class="bg-zinc-100 rounded-lg justify-center w-full shadow-lg">
-      <tbody class="w-full">
-      <tr class="w-full">
-        <th class="px-2 py-4 w-full">
-          <div class="flex justify-between items-center mb-4">
-            <div class="px-3 py-2">
-              <h1 class="text-lg font-bold">Name</h1>
-            </div>
-            <div class="px-12 py-2">
-              <h1 class="text-lg font-bold">Partido</h1>
-            </div>
-          </div>
-          <%= render partial: 'home/deputies', collection: @deputies %>
-          <div class="pagination mt-3">
-            <%= will_paginate @deputies %>
-          </div>
-        </th>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="container mx-auto text-center">
+      <p class="mb-4">&copy; 2024 Deputados do Brasil. Todos os direitos reservados.</p>
+      <ul class="flex justify-center gap-6">
+        <li><a href="#" class="hover:underline">Termos de Uso</a></li>
+        <li><a href="#" class="hover:underline">Política de Privacidade</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
