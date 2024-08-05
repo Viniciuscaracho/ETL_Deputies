@@ -2,8 +2,9 @@
 
 class Proposition < ApplicationRecord
   # Associations
-  # has_many :themes
-  # has_many :votes
+  has_many :themes
+  has_many :votes
+  belongs_to :deputy
 
   # Validations
   validates :type, presence: true

@@ -58,16 +58,16 @@ class Process:
                     if existing_proposition:
                         sql = """
                               UPDATE propositions
-                              SET type = %s, summary = %s, updated_at = CURRENT_TIMESTAMP
+                              SET proposition_type = %s, summary = %s, updated_at = CURRENT_TIMESTAMP
                               WHERE id = %s
                               """
-                        cursor.execute(sql, (row['type'], row['summary'], row['id']))
+                        cursor.execute(sql, (row['proposition_type'], row['summary'], row['id']))
                     else:
                         sql = """
-                              INSERT INTO propositions(id, type, summary, created_at, updated_at)
+                              INSERT INTO propositions(id, proposition_type, summary, created_at, updated_at)
                               VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
                               """
-                        cursor.execute(sql, (row['id'], row['type'], row['summary']))
+                        cursor.execute(sql, (row['id'], row['proposition_type'], row['summary']))
 
                 self.conn.commit()
                 print("Dados das proposições inseridos/atualizados com sucesso!")

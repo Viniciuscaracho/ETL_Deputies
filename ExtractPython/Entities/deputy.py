@@ -52,8 +52,9 @@ class Deputy:
         for prop in propositions['dados']:
             current_proposition = {
                 'id': prop.get('id'),
-                'type': prop.get('siglaTipo'),
-                'summary': prop.get('ementa')
+                'proposition_type': prop.get('siglaTipo'),
+                'summary': prop.get('ementa'),
+                'uriRelator': prop.get('uriRelator')
             }
             propositions_list.append(current_proposition)
             if len(propositions_list) >= max_rows:

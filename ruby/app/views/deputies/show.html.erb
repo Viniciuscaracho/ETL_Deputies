@@ -1,68 +1,43 @@
 <body class="p-0 bg-gray-200">
   <header class="fixed top-0 left-0 right-0 z-50 flex flex-col md:flex-row bg-gray-900 bg-opacity-80 w-full items-center">
     <div class="relative flex flex-col md:flex-row md:mx-16 h-28 w-full items-center justify-between">
-      <a href="#" class="flex items-center text-white px-4 py-2 transition text-2xl not-italic duration-300">
-        Deputinfos
+      <a href="<%= new_user_session_path %>" class="flex items-center text-white px-4 py-2 transition text-2xl not-italic duration-300">
+        Deputinhos
       </a>
       <div class="flex gap-4 mt-4 md:mt-0 md:ml-auto">
         <a href="https://www.camara.leg.br/transparencia/" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300">Portal Transparência</a>
-        <a href="#" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+        <a href="<%= new_user_registration_path %>" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
           Sign Up
         </a>
-        <a href="#" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
-          <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 5.121A6.003 6.003 0 0112 4a6.003 6.003 0 016.879 1.121M12 12a6.003 6.003 0 01-6.879-1.121m0 0A6.003 6.003 0 0112 20a6.003 6.003 0 006.879-1.121M6.121 12A6.003 6.003 0 0112 8a6.003 6.003 0 016.879 4M4 4v16m16-16v16" />
-          </svg>
-          Login
+        <a href="<%= new_user_session_path %>" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+          <%= heroicon 'user', variant: :solid, options: { class: 'w-6 h-6 mr-2' } %> Login
         </a>
       </div>
     </div>
   </header>
   <main class="flex flex-col items-center justify-center mt-32 p-10">
-    <section class="text-center mb-16">
-      <h2 class="text-4xl font-bold mb-4">Conheça os Deputados que fazem a diferença no Brasil</h2>
-      <p class="text-lg mb-6">Explore as informações sobre deputados, suas proposições e votações.</p>
-      <a href="#deputados" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300">Veja os Deputados</a>
-    </section>
-
-    <section id="sobre" class="text-center mb-16">
-      <h2 class="text-3xl font-bold mb-4">Sobre o Site</h2>
-      <p class="text-lg max-w-2xl mx-auto">Nosso site oferece uma visão completa sobre os deputados do Brasil, suas proposições e suas posições em votações. Acompanhe o trabalho dos nossos representantes e fique informado.</p>
-    </section>
-
-    <section id="deputados" class="text-center mb-16">
-      <h2 class="text-3xl font-bold mb-6">Deputados em Destaque</h2>
-      <div class="flex flex-wrap justify-center gap-6">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-          <img src="deputado1.jpg" alt="Deputado 1" class="w-full h-48 object-cover rounded-full mb-4">
-          <h3 class="text-xl font-semibold mb-2">Nome do Deputado</h3>
-          <p class="text-gray-600 mb-4">Partido - Estado</p>
-          <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">Ver Perfil</a>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-          <img src="deputado2.jpg" alt="Deputado 2" class="w-full h-48 object-cover rounded-full mb-4">
-          <h3 class="text-xl font-semibold mb-2">Nome do Deputado</h3>
-          <p class="text-gray-600 mb-4">Partido - Estado</p>
-          <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">Ver Perfil</a>
-        </div>
-        <!-- Adicione mais cards conforme necessário -->
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-3xl">
+      <h1 class="text-2xl font-bold mb-4">Informações do Deputado</h1>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Nome:</label>
+        <p class="text-gray-700 text-base"><%= @deputy.civil_name %></p>
       </div>
-    </section>
-
-    <section id="contato" class="text-center mb-16">
-      <h2 class="text-3xl font-bold mb-4">Contato</h2>
-      <p class="text-lg mb-4">Se você tiver dúvidas ou precisar de mais informações, entre em contato conosco:</p>
-      <p class="text-lg">Email: contato@deputadosdobrasil.com.br</p>
-      <p class="text-lg">Telefone: (11) 1234-5678</p>
-    </section>
-  </main>
-  <footer class="bg-gray-900 text-white py-6">
-    <div class="container mx-auto text-center">
-      <p class="mb-4">&copy; 2024 Deputados do Brasil. Todos os direitos reservados.</p>
-      <ul class="flex justify-center gap-6">
-        <li><a href="#" class="hover:underline">Termos de Uso</a></li>
-        <li><a href="#" class="hover:underline">Política de Privacidade</a></li>
-      </ul>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Partido:</label>
+        <p class="text-gray-700 text-base"><%= @deputy.party_initials %></p>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Proposições:</label>
+        <ul class="list-disc pl-5">
+            <li class="text-gray-700 text-base">
+              <p class="text-black font-black text-base">Ementa: </p><%= @proposition.first.summary %>
+            </li>
+            <li class="text-gray-700 text-base">
+              <p class="text-black font-black text-base">Sigla: </p>
+              <%= @proposition.proposition_type %>
+            </li>
+        </ul>
+      </div>
     </div>
-  </footer>
+  </main>
 </body>

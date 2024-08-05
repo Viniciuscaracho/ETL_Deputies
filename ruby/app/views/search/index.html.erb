@@ -1,8 +1,24 @@
 <body class="p-0 bg-gray-200">
+  <header class="fixed top-0 left-0 right-0 z-50 flex flex-col md:flex-row bg-gray-900 bg-opacity-80 w-full items-center">
+    <div class="relative flex flex-col md:flex-row md:mx-16 h-28 w-full items-center justify-between">
+      <a href="<%= new_user_session_path %>" class="flex items-center text-white px-4 py-2 transition text-2xl not-italic duration-300">
+        Deputinhos
+      </a>
+      <div class="flex gap-4 mt-4 md:mt-0 md:ml-auto">
+        <a href="https://www.camara.leg.br/transparencia/" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300">Portal Transparência</a>
+        <a href="<%= new_user_registration_path %>" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+          Sign Up
+        </a>
+        <a href="<%= new_user_session_path %>" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+          <%= heroicon 'user', variant: :solid, options: { class: 'w-6 h-6 mr-2' } %> Login
+        </a>
+      </div>
+    </div>
+  </header>
   <main class="flex justify-center p-10 mt-32">
     <div class="flex-auto justify-center rounded-lg px-2 py-2 bg-gray-100 max-w-screen-sm shadow-md">
       <div class="rounded-lg items-center py-2 px-2 mt-2">
-        <%= form_with url: root_path, method: :get, local: true do |f| %>
+        <%= form_with url: search_index_path, method: :get, local: true do |f| %>
           <%= f.text_field :query, value: params[:query], placeholder: "Search by name or party", class: "border-gray-400 rounded-lg bg-white w-96 px-4 py-2", style: "width: 500px; border-width: 2px;" %>
           <button type="submit" class="ml-2 rounded-lg bg-blue-800 px-4 py-2 text-white">Search</button>
         <% end %>

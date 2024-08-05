@@ -1,54 +1,70 @@
 <body class="bg-gray-200">
-<main class="container justify-center mx-auto mt-44 px-5 flex ">
-  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <h2 class="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2>
+  <header class="fixed top-0 left-0 right-0 z-50 flex flex-col md:flex-row bg-gray-900 bg-opacity-80 w-full items-center">
+    <div class="relative flex flex-col md:flex-row md:mx-16 h-28 w-full items-center justify-between">
+      <a href="<%= search_index_url %>" class="flex items-center text-white px-4 py-2 transition text-2xl not-italic duration-300">
+        Deputinhos
+      </a>
+      <div class="flex gap-4 mt-4 md:mt-0 md:ml-auto">
+        <a href="https://www.camara.leg.br/transparencia/" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300">Portal Transparência</a>
+        <a href="<%= new_user_registration_path %>" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+          Sign Up
+        </a>
+        <a href="https://www.linkedin.com/in/vinicius-caracho-3ab946229/" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+          <%= heroicon 'academic-cap', variant: :solid, options: { class: 'w-6 h-6 mr-2' } %> Linkedin
+        </a>
+      </div>
     </div>
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
-      <%= form_for(@user, as:@user, url: user_session_path, html: { method: :post }) do |f| %>
-        <div>
-          <div class="mt-2">
-            <label for="username" class="block text-sm w-72 font-medium leading-6 text-gray-900">Name</label>
-            <div class="mt-0">
-              <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
-              <%= field_error_message(f.object, :username) %>
+  </header>
+  <main class="container justify-center mx-auto mt-44 px-5 flex ">
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 class="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2>
+      </div>
+      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
+        <%= form_for(@user, as:@user, url: user_session_path, html: { method: :post }) do |f| %>
+          <div>
+            <div class="mt-2">
+              <label for="username" class="block text-sm w-72 font-medium leading-6 text-gray-900">Name</label>
+              <div class="mt-0">
+                <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= field_error_message(f.object, :username) %>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+              <div class="mt-0">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= field_error_message(f.object, :email) %>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <div class="flex items-center justify-between">
+                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                <% if @minimum_password_length %>
+                  <div class="text-sm">
+                    <em>(<%= @minimum_password_length %> characters minimum)</em>
+                  </div>
+                <% end %>
+              </div>
+              <div class="mt-0">
+                <%= f.password_field :password, autocomplete: "new-password", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= field_error_message(f.object, :password) %>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <%= f.submit "Confirm", class: "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
             </div>
           </div>
+        <% end %>
 
-          <div class="mt-2">
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-            <div class="mt-0">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
-              <%= field_error_message(f.object, :email) %>
-            </div>
-          </div>
-
-          <div class="mt-2">
-            <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-              <% if @minimum_password_length %>
-                <div class="text-sm">
-                  <em>(<%= @minimum_password_length %> characters minimum)</em>
-                </div>
-              <% end %>
-            </div>
-            <div class="mt-0">
-              <%= f.password_field :password, autocomplete: "new-password", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
-              <%= field_error_message(f.object, :password) %>
-            </div>
-          </div>
-
-          <div class="mt-2">
-            <%= f.submit "Confirm", class: "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-          </div>
-        </div>
-      <% end %>
-
-      <p class="mt-10 text-center text-sm text-gray-500">
-        Not a member?
-        <a href="/users/sign_up" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a account now</a>
-      </p>
+        <p class="mt-10 text-center text-sm text-gray-500">
+          Not a member?
+          <a href="/users/sign_up" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a account now</a>
+        </p>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 </body>

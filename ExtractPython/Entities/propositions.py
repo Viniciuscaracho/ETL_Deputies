@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import os
 
 class Proposition:
     def __init__(self, deputy):
@@ -33,7 +34,9 @@ class Proposition:
                     authors_list.append({
                         "uri": author["uri"],
                         "name": author["nome"],
-                        "proposition_id": proposition_id
+                        "proposition_id": proposition_id,
+                        "uriRelator": self.selected_propositions_df.loc[
+                            self.selected_propositions_df['id'] == proposition_id, 'uriRelator'].values[0]
                     })
 
         return pd.DataFrame(authors_list)

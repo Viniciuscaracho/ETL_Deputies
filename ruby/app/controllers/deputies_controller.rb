@@ -2,7 +2,16 @@
 
 class DeputiesController < ApplicationController
   def show
-    @deputies = Deputy.find(params[:id])
+    @deputy = Deputy.find(params[:id])
+    @proposition = @deputy.propositions
+  end
 
+
+  private
+
+  def deputies_params
+    params.require(:deputies).map do |deputy|
+      deputy.permit(:id, :civil_name, :party_initials, :proposition_id)
+    end
   end
 end
