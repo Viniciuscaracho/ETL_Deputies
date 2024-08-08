@@ -2,7 +2,7 @@
 
 class PropositionsController < ApplicationController
   def index
-    @propositions = Proposition.find(params[:id])
+    @propositions = Proposition.all
   end
 
 

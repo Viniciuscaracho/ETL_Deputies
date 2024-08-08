@@ -8,8 +8,8 @@ class Deputy:
         self.base_url = "https://dadosabertos.camara.leg.br/api/v2/"
 
     def get_deputies(self, authors_df):
-        deputies_list = []
-        unique_uris = authors_df['uri'].drop_duplicates()
+        deputies_dict = {}
+        unique_uris = authors_df['uri'].unique()
 
         for author_uri in unique_uris:
             try:
@@ -17,20 +17,28 @@ class Deputy:
                 response.raise_for_status()
                 response_data = response.json()['dados']
                 author_propositions = authors_df[authors_df['uri'] == author_uri]['proposition_id'].tolist()
-                selected_deputy = {
-                    'id': response_data['id'],
-                    'civil_name': response_data['nomeCivil'],
-                    'party_initials': response_data['ultimoStatus']['siglaPartido'],
-                    'proposition_ids': author_propositions
-                }
-                deputies_list.append(selected_deputy)
+                deputy_id = response_data['id']
+
+                if deputy_id not in deputies_dict:
+                    deputies_dict[deputy_id] = {
+                        'id': deputy_id,
+                        'civil_name': response_data['nomeCivil'],
+                        'party_initials': response_data['ultimoStatus']['siglaPartido'],
+                        'proposition_ids': author_propositions
+                    }
+                else:
+                    deputies_dict[deputy_id]['proposition_ids'].extend(author_propositions)
+
             except requests.exceptions.RequestException as e:
                 print(f"Error fetching data from {author_uri}: {str(e)}")
 
-        deputies_df = pd.DataFrame(deputies_list).explode('proposition_ids').drop_duplicates(subset=['id', 'proposition_ids'])
+        for deputy in deputies_dict.values():
+            deputy['proposition_ids'] = list(set(deputy['proposition_ids']))
+
+        deputies_df = pd.DataFrame(deputies_dict.values())
         return deputies_df
 
-    def get_deputy_propositions(self, max_rows=300):
+    def get_propositions(self, max_rows=300):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(base_dir, '../proposicoes-2024.json')
 

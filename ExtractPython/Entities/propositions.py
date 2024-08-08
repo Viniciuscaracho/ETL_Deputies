@@ -6,7 +6,7 @@ class Proposition:
     def __init__(self, deputy):
         self.deputy = deputy
         self.base_url = "https://dadosabertos.camara.leg.br/api/v2/"
-        self.selected_propositions_df = self.deputy.get_deputy_propositions()
+        self.selected_propositions_df = self.deputy.get_propositions()
 
     def chunks(self, lst, n):
         for i in range(0, len(lst), n):
@@ -35,8 +35,6 @@ class Proposition:
                         "uri": author["uri"],
                         "name": author["nome"],
                         "proposition_id": proposition_id,
-                        "uriRelator": self.selected_propositions_df.loc[
-                            self.selected_propositions_df['id'] == proposition_id, 'uriRelator'].values[0]
                     })
 
         return pd.DataFrame(authors_list)

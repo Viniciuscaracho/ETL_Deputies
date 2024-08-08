@@ -10,21 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_02_183700) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_07_200907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "deputies", force: :cascade do |t|
     t.string "civil_name"
     t.string "party_initials"
-    t.string "proposition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "deputies_propositions", force: :cascade do |t|
+    t.bigint "deputy_id", null: false
+    t.bigint "proposition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deputy_id"], name: "index_deputies_propositions_on_deputy_id"
+    t.index ["proposition_id"], name: "index_deputies_propositions_on_proposition_id"
   end
 
   create_table "propositions", force: :cascade do |t|
     t.string "proposition_type"
     t.text "summary"
+    t.integer "deputy_id"
+    t.integer "theme_id"
+    t.integer "vote_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -59,4 +70,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_183700) do
     t.index ["id"], name: "index_votes_on_id", unique: true
   end
 
+  add_foreign_key "deputies_propositions", "deputies"
+  add_foreign_key "deputies_propositions", "propositions"
 end

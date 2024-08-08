@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-class DeputiesController < ApplicationController
+class DeputiesController < PropositionsController
   def show
-    @deputy = Deputy.find(params[:id])
-    @proposition = @deputy.propositions
+    @deputy = @propositions.deputy_id
   end
-
 
   private
 
