@@ -30,14 +30,16 @@
         <label class="block text-gray-700 text-sm font-bold mb-2">Proposições:</label>
         <ul class="list-disc pl-5">
           <% @propositions.each do |proposition| %>
-            <li class="text-gray-700 text-base">
-              <p class="text-black font-black text-base">Ementa: </p>
-              <p class="text-black text-base"><%= proposition.summary %></p>
-            </li>
-            <li class="text-gray-700 text-base">
-              <p class="text-black font-black text-base">Sigla: </p>
-              <p class="text-black text-base"><%= proposition.proposition_type %></p>
-            </li>
+            <div class="list-disc border-black shadow-md rounded-lg pl-5">
+              <div class="text-gray-700 mt-4 py-2 text-base">
+                <p class="text-black font-black text-base">Ementa: </p>
+                <p class="text-black text-base"><%= proposition.summary %></p>
+              </div>
+              <div class="text-gray-700 py-2 text-base">
+                <p class="text-black font-black text-base">Sigla: </p>
+                <p class="text-black text-base"><%= proposition.proposition_type %></p>
+              </div>
+            </div>
           <% end %>
         </ul>
       </div>

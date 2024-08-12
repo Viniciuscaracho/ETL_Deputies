@@ -38,7 +38,7 @@ class Deputy:
         deputies_df = pd.DataFrame(deputies_dict.values())
         return deputies_df
 
-    def get_propositions(self, max_rows=300):
+    def get_propositions(self):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(base_dir, '../proposicoes-2024.json')
 
@@ -65,7 +65,5 @@ class Deputy:
                 'uriRelator': prop.get('uriRelator')
             }
             propositions_list.append(current_proposition)
-            if len(propositions_list) >= max_rows:
-                break
 
         return pd.DataFrame(propositions_list)

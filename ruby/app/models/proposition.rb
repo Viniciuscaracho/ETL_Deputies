@@ -4,8 +4,8 @@ class Proposition < ApplicationRecord
   # Associations
   has_many :themes
   has_many :votes
-  belongs_to :deputy, foreign_key: :deputy_id
-
+  has_many :deputies_propositions
+  has_many :deputies, through: :deputies_propositions
   # Validations
   validates :type, presence: true
   validates :summary, presence: true

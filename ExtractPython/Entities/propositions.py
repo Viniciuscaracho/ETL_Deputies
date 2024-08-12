@@ -24,6 +24,7 @@ class Proposition:
                     continue
 
                 response_data = response.json()
+                print(response_data)
                 if 'dados' not in response_data:
                     print(f"No authors found for proposition {proposition_id}")
                     continue

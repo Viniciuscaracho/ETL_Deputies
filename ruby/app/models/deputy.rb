@@ -8,7 +8,8 @@ class Deputy < ApplicationRecord
                   using: {
                     tsearch: { prefix: true }
                   }
-  has_many :propositions, foreign_key: :deputy_id, primary_key: :id
+  has_many :deputies_propositions
+  has_many :propositions, through: :deputies_propositions
 
   # Validations
   validates :civil_name, presence: true
