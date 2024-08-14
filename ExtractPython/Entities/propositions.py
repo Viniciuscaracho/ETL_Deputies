@@ -39,7 +39,7 @@ class Proposition:
 
         return pd.DataFrame(authors_list)
 
-    def get_propositions(self, max_rows=200):
+    def get_propositions(self, max_rows=500):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(base_dir, '../proposicoes-2024.json')
 
@@ -67,4 +67,23 @@ class Proposition:
             propositions_list.append(current_proposition)
             if max_rows <= len(propositions_list):
                 break
+
+        api_url = f"{self.base_url}/proposicoes"
+        response = requests.get(api_url, params={'itens': max_rows})
+
+        if response.status_code == 200:
+            api_data = response.json().get('dados', [])
+            for prop in api_data:
+                current_proposition = {
+                    'id': prop['id'],
+                    'proposition_type': prop['siglaTipo'],
+                    'summary': prop['ementa']
+                }
+                propositions_list.append(current_proposition)
+                if max_rows <= len(propositions_list):
+                    break
+        else:
+            print(f"API request failed with status code: {response.status_code}")
+
         return pd.DataFrame(propositions_list)
+

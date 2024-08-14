@@ -33,7 +33,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_200907) do
   create_table "propositions", force: :cascade do |t|
     t.string "proposition_type"
     t.text "summary"
-    t.integer "deputy_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
