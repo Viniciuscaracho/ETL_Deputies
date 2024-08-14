@@ -3,7 +3,11 @@
 class DeputiesController < ApplicationController
   def show
     @deputy = Deputy.find(params[:id])
-    @propositions = @deputy.propositions
+    if params[:query].present?
+      @propositions = @deputy.propositions.paginate(page: params[:page], per_page: 10)
+    else
+      @propositions = @deputy.propositions.distinct.paginate(page: params[:page], per_page: 10)
+    end
   end
 
   private

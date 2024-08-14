@@ -7,7 +7,7 @@ if __name__ == '__main__':
     proposition = Proposition(deputy)
     process = Process(deputy, proposition)
 
-    propositions_df = deputy.get_propositions()
+    propositions_df = proposition.get_propositions()
 
     authors_df = proposition.get_proposition_authors()
     deputies_df = deputy.get_deputies(authors_df)

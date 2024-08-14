@@ -34,15 +34,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_200907) do
     t.string "proposition_type"
     t.text "summary"
     t.integer "deputy_id"
-    t.integer "theme_id"
-    t.integer "vote_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "themes", force: :cascade do |t|
-    t.integer "proposition_id"
-    t.string "theme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -59,15 +50,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_200907) do
     t.string "password_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "votes", id: :serial, force: :cascade do |t|
-    t.string "proposition_id"
-    t.string "description"
-    t.string "approval"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_votes_on_id", unique: true
   end
 
   add_foreign_key "deputies_propositions", "deputies"
