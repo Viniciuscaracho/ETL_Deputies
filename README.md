@@ -42,7 +42,7 @@ The web application is responsible for:
 1. **Setup the Ruby on Rails Environment:**
    - Navigate to the `web` directory.
    - Install the required gems: \`bundle install\`.
-   - Setup the database: \`rails db:create db:migrate db:seed\`.
+   - Setup the database: \`rails db:setup\`.
 2. **Run the Web Application:**
    - Start the Rails server: \`rails server\`.
 
