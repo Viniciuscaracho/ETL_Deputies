@@ -4,7 +4,4 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :search
   resources :deputies
-  resources :propositions
-  resources :themes
-  resources :votes
 end

@@ -15,51 +15,43 @@
       </div>
     </div>
   </header>
-  <main class="flex flex-col items-center justify-center mt-32 p-4 sm:p-6 md:p-10">
+  <main class="flex flex-col items-center justify-center mt-36   p-4 sm:p-6 md:p-10">
     <section class="text-center mb-12 sm:mb-16">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">Conheça os Deputados que fazem a diferença no Brasil</h2>
       <p class="text-base sm:text-lg mb-6">Explore as informações sobre deputados, suas proposições e votações.</p>
       <a href="<%= search_index_url %>" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300">Veja os Deputados</a>
     </section>
 
-    <section class="text-center mb-12 sm:mb-16">
+    <section class="text-center mt-10 mb-12 sm:mb-16">
       <h2 class="text-2xl sm:text-3xl font-bold mb-4">Relação Partidos - Ementas</h2>
-      <div class="mt-10 bg-white rounded-lg justify-center h-32 w-full shadow-lg md:justify-center ">
-        <table class="bg-zinc-100 rounded-lg justify-center w-full shadow-lg md:justify-center ">
-          <tbody class="w-full">
-          <tr class="w-full">
-            <th class="px-2 py-4 w-full">
-              <div class="flex justify-between items-center mb-4">
-                <div class="px-3 py-2">
-                  <h1 class="text-lg font-bold">Name</h1>
-                </div>
-                <div class="px-12 py-2">
-                  <h1 class="text-lg font-bold">Partido</h1>
-                </div>
-              </div>
-              <div>
-                <% @propositions_by_party.each do |result| %>
-                  <div class="px-3 py-5">
-                    <%= result.party_initials %>
-                  </div>
-                  <div class="px-16 py-5">
-                    <%= result.proposition_count %>
-                  </div>
-                <% end %>
-              </div>
-            </th>
-          </tr>
-          </tbody>
-        </table>
+      <div class="mt-10 bg-white rounded-lg shadow-lg">
+        <div class="bg-zinc-100 rounded-lg w-full shadow-lg h-64 overflow-y-auto">
+          <table class="w-full">
+            <thead>
+            <tr class="text-left">
+              <th class="px-3 py-4 text-lg font-bold">Partido</th>
+              <th class="py-4 text-lg font-bold">Ementas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @propositions_by_party.each do |result| %>
+              <tr class="border-t">
+                <td class="px-3 py-5"><%= result.party_initials %></td>
+                <td class="px-3 py-5"><%= result.proposition_count %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
-    <section id="sobre" class="text-center mb-12 sm:mb-16">
+    <section id="sobre" class="text-center mt-10 mb-12 sm:mb-16">
       <h2 class="text-2xl sm:text-3xl font-bold mb-4">Sobre o Site</h2>
       <p class="text-base sm:text-lg max-w-2xl mx-auto">Nosso site oferece uma visão completa sobre os deputados do Brasil, suas proposições e suas posições em votações. Acompanhe o trabalho dos nossos representantes e fique informado.</p>
     </section>
 
-    <section id="contato" class="text-center mb-12 sm:mb-16">
+    <section id="contato" class="text-center mt-10 mb-12 sm:mb-16">
       <h2 class="text-2xl sm:text-3xl font-bold mb-4">Contato</h2>
       <p class="text-base sm:text-lg mb-4">Se você tiver dúvidas ou precisar de mais informações, entre em contato conosco:</p>
       <p class="text-base sm:text-lg">Email: contato@deputadosdobrasil.com.br</p>

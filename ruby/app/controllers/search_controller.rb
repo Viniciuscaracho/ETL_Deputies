@@ -2,6 +2,8 @@
 
 
 class SearchController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     if params[:query].present?
       @deputies = Deputy.search_by_name_and_party(params[:query]).paginate(page: params[:page], per_page: 10)
