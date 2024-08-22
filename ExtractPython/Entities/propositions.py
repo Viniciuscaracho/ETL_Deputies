@@ -45,7 +45,7 @@ class Proposition:
 
     def get_propositions(self, max_rows=500):
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(base_dir, '../proposicoes-2024.json')
+        file_path = os.path.join(base_dir, '../Ano-2024.json')
 
         try:
             # Tenta ler as proposições do arquivo JSON local

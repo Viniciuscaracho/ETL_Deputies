@@ -8,7 +8,7 @@ class RegistrationsController < ApplicationController
 
     respond_to do |format|
       if @user.save!
-        format.html { redirect_to users_url}
+        format.html { redirect_to root_url, notice: 'User was successfully created.' }
       else
         format.html { render 'new', status: :unprocessable_entity }
       end

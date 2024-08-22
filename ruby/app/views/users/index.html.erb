@@ -1,5 +1,21 @@
 <body class="bg-gray-200">
-<main class="container justify-center mx-auto mt-8 flex">
+<header class="fixed top-0 left-0 right-0 z-50 flex flex-col md:flex-row bg-gray-900 bg-opacity-80 w-full items-center">
+  <div class="relative flex flex-col md:flex-row md:mx-16 h-28 w-full items-center justify-between">
+    <a href="<%= search_index_url %>" class="flex items-center text-white px-4 py-2 transition text-2xl not-italic duration-300">
+      Deputinhos
+    </a>
+    <div class="flex gap-4 mt-4 md:mt-0 md:ml-auto">
+      <a href="https://www.camara.leg.br/transparencia/" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300">Portal Transparência</a>
+      <a href="<%= new_user_registration_path %>" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+        Sign Up
+      </a>
+      <a href="https://www.linkedin.com/in/vinicius-caracho-3ab946229/" class="flex items-center bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+        <%= heroicon 'academic-cap', variant: :solid, options: { class: 'w-6 h-6 mr-2' } %> Linkedin
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container justify-center mx-auto mt-16 flex">
   <div class="w-full px-10 py-8 lg:px-8">
     <div class="w-full flex-auto justify-center sm:mx-auto sm:w-full sm:max-w-sm">
       <h2 class="mt-8 text-center text-2xl font-bold leading-9 text-gray-900">Users List</h2>
