@@ -7,7 +7,7 @@ class connection_db:
         self.DB_USER = "postgres"
         self.DB_PASSWORD = "postgres"
         self.DB_HOST = "localhost"
-        self.DB_PORT = "9999"
+        self.DB_PORT = "5432"
 
     def create_connection(self):
         try:

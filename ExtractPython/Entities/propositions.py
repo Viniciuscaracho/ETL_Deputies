@@ -44,39 +44,8 @@ class Proposition:
         return pd.DataFrame(authors_list)
 
     def get_propositions(self, max_rows=500):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(base_dir, '../Ano-2024.json')
-
-        try:
-            # Tenta ler as proposições do arquivo JSON local
-            propositions = pd.read_json(file_path)
-        except FileNotFoundError as e:
-            # Tratamento de erro para arquivo não encontrado
-            print(f"File not found error: {str(e)}")
-            return pd.DataFrame()
-        except ValueError as e:
-            # Tratamento de erro para problemas na leitura do JSON
-            print(f"Error reading JSON file: {str(e)}")
-            return pd.DataFrame()
-
-        if 'dados' not in propositions.columns:
-            # Verifica se o JSON possui a estrutura esperada
-            print("Unexpected JSON structure.")
-            return pd.DataFrame()
-
         propositions_list = []
 
-        for prop in propositions['dados']:
-            current_proposition = {
-                'id': prop['id'],
-                'proposition_type': prop['siglaTipo'],
-                'summary': prop['ementa']
-            }
-            propositions_list.append(current_proposition)
-            if max_rows <= len(propositions_list):
-                break
-
-        # Solicita proposições adicionais da API
         api_url = f"{self.base_url}/proposicoes"
         response = requests.get(api_url, params={'itens': max_rows})
 

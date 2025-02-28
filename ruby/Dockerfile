@@ -1,7 +1,7 @@
 # This Dockerfile uses Fullstaq Ruby with jemalloc and only supports amd64.
 FROM buildpack-deps:20.04
 
-ARG RUBY_VERSION=3.1.4-jemalloc
+ARG RUBY_VERSION=3.1.0-jemalloc
 ENV RAILS_ENV=development
 ENV GEM_HOME /usr/local/bundle
 ENV BUNDLE_PATH="$GEM_HOME"
@@ -52,8 +52,7 @@ RUN yarn install
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 COPY . /app
 
-RUN yarn build
-RUN yarn build:css
+RUN yarn
 RUN chmod ug+x /app/docker-entrypoint.sh
 
 ENTRYPOINT [ "/app/docker-entrypoint.sh" ]

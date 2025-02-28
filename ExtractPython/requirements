@@ -2,4 +2,3 @@ requests
 pandas
 sqlalchemy
 psycopg2-binary
-os
