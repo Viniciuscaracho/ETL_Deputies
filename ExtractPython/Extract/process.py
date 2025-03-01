@@ -7,7 +7,53 @@ class Process:
         db = connection_db()
         self.conn = db.create_connection()
 
+        # Criar tabelas se não existirem
+        self.ensure_tables_exist()
+
+    def ensure_tables_exist(self):
+        """Verifica se as tabelas existem e as cria se necessário."""
+        if self.conn:
+            try:
+                with self.conn.cursor() as cursor:
+                    cursor.execute("""
+                        CREATE TABLE IF NOT EXISTS deputies (
+                            id SERIAL PRIMARY KEY,
+                            civil_name TEXT NOT NULL,
+                            party_initials TEXT,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        )
+                    """)
+
+                    cursor.execute("""
+                        CREATE TABLE IF NOT EXISTS propositions (
+                            id SERIAL PRIMARY KEY,
+                            proposition_type TEXT NOT NULL,
+                            summary TEXT,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        )
+                    """)
+
+                    cursor.execute("""
+                        CREATE TABLE IF NOT EXISTS deputies_propositions (
+                            deputy_id INTEGER REFERENCES deputies(id) ON DELETE CASCADE,
+                            proposition_id INTEGER REFERENCES propositions(id) ON DELETE CASCADE,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            PRIMARY KEY (deputy_id, proposition_id)
+                        )
+                    """)
+
+                    self.conn.commit()
+                    print("Tabelas verificadas/criadas com sucesso!")
+
+            except Exception as e:
+                print(f"Erro ao criar tabelas: {str(e)}")
+                self.conn.rollback()
+
     def insert_deputies(self, deputies_df):
+        """Insere ou atualiza dados de deputados no banco de dados."""
         if self.conn:
             try:
                 with self.conn.cursor() as cursor:
@@ -19,16 +65,16 @@ class Process:
 
                         if existing_deputy:
                             sql = """
-                                  UPDATE deputies
-                                  SET civil_name = %s, party_initials = %s, updated_at = CURRENT_TIMESTAMP
-                                  WHERE id = %s
-                                  """
+                                UPDATE deputies
+                                SET civil_name = %s, party_initials = %s, updated_at = CURRENT_TIMESTAMP
+                                WHERE id = %s
+                            """
                             cursor.execute(sql, (row['civil_name'], row['party_initials'], row['id']))
                         else:
                             sql = """
-                                  INSERT INTO deputies(id, civil_name, party_initials, created_at, updated_at)
-                                  VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-                                  """
+                                INSERT INTO deputies(id, civil_name, party_initials, created_at, updated_at)
+                                VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                            """
                             cursor.execute(sql, (row['id'], row['civil_name'], row['party_initials']))
 
                         if isinstance(row['proposition_ids'], list):
@@ -39,8 +85,12 @@ class Process:
                                 association_exists = cursor.fetchone()
                                 if not association_exists:
                                     cursor.execute(
-                                        "INSERT INTO deputies_propositions(deputy_id, proposition_id, created_at, updated_at) VALUES (%s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
-                                        (row['id'], proposition_id))
+                                        """
+                                        INSERT INTO deputies_propositions(deputy_id, proposition_id, created_at, updated_at) 
+                                        VALUES (%s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                                        """,
+                                        (row['id'], proposition_id)
+                                    )
 
                 self.conn.commit()
                 print("Dados dos deputados e associações inseridos/atualizados com sucesso!")
@@ -48,7 +98,9 @@ class Process:
             except Exception as e:
                 print(f"Erro ao inserir/atualizar dados dos deputados: {str(e)}")
                 self.conn.rollback()
+
     def insert_propositions(self, propositions_df):
+        """Insere ou atualiza dados de proposições no banco de dados."""
         if self.conn:
             try:
                 with self.conn.cursor() as cursor:
@@ -60,16 +112,16 @@ class Process:
 
                         if existing_proposition:
                             sql = """
-                                  UPDATE propositions
-                                  SET proposition_type = %s, summary = %s, updated_at = CURRENT_TIMESTAMP
-                                  WHERE id = %s
-                                  """
+                                UPDATE propositions
+                                SET proposition_type = %s, summary = %s, updated_at = CURRENT_TIMESTAMP
+                                WHERE id = %s
+                            """
                             cursor.execute(sql, (row['proposition_type'], row['summary'], row['id']))
                         else:
                             sql = """
-                                  INSERT INTO propositions(id, proposition_type, summary, created_at, updated_at)
-                                  VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-                                  """
+                                INSERT INTO propositions(id, proposition_type, summary, created_at, updated_at)
+                                VALUES (%s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                            """
                             cursor.execute(sql, (row['id'], row['proposition_type'], row['summary']))
 
                     self.conn.commit()
@@ -80,6 +132,7 @@ class Process:
                 self.conn.rollback()
 
     def close_connection(self):
+        """Fecha a conexão com o banco de dados."""
         if self.conn:
             self.conn.close()
             print("Conexão com PostgreSQL fechada.")

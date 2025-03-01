@@ -1,18 +1,21 @@
-version: '3.2'
+version: '3'
 services:
-  project-redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
-
-  project-db:
-    image: postgres:14-alpine
-    environment:
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
+  app:
+    build: .
     volumes:
-      - "project_test-db-data:/var/lib/postgresql/data"
+      - ".:/app"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres_db
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres_db:5432/project_development
 
-volumes:
-  project_test-db-data:
+  postgres_db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: project_development
+    ports:
+      - "9999:5432"

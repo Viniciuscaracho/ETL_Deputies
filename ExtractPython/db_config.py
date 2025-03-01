@@ -1,13 +1,14 @@
+import os
 import psycopg2
 from psycopg2 import OperationalError
 
 class connection_db:
     def __init__(self):
-        self.DB_NAME = "project_development"
-        self.DB_USER = "postgres"
-        self.DB_PASSWORD = "postgres"
-        self.DB_HOST = "localhost"
-        self.DB_PORT = "5432"
+        self.DB_NAME = os.getenv("DB_NAME", "deputy-database")
+        self.DB_USER = os.getenv("DB_USER", "postgres")
+        self.DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")
+        self.DB_HOST = os.getenv("DB_HOST", "database.default.svc.cluster.local")
+        self.DB_PORT = os.getenv("DB_PORT", "5432")
 
     def create_connection(self):
         try:

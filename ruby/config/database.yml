@@ -2,19 +2,19 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: localhost
+  host: database.default.svc.cluster.local
   port: 5432
   username: postgres
   password: postgres
 
 development:
   <<: *default
-  database: project_development
+  database: deputy-database
 
 test:
   <<: *default
-  database: project_test
+  database: deputy-database
 
 production:
   <<: *default
-  database: project_production
+  database: deputy-database
